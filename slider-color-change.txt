@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+        <style>
+            .toggler { width: 500px; height: 200px; position: relative; margin-top: 18px; margin-left: 350px; }
+            #button1 { padding: .5em 1em; text-decoration: none; cursor: pointer; }
+            #button2 { padding: .5em 1em; text-decoration: none; background: #0900ff; color: #fff; cursor: pointer;}
+            #effect { width: 240px; height: 170px; padding: 0.4em; position: relative; background: #fff; }
+            #red, #green, #blue {
+            float: left;
+            clear: left;
+            width: 300px;
+            margin: 10px;
+            position: absolute;
+            top: 8em;
+            }
+            #swatch {
+            }
+            #red .ui-slider-range { background: #ef2929; }
+            #red .ui-slider-handle { border-color: #ef2929; }
+            #green .ui-slider-range { background: #8ae234; }
+            #green .ui-slider-handle { border-color: #8ae234; }
+            #blue .ui-slider-range { background: #729fcf; }
+            #blue .ui-slider-handle { border-color: #729fcf; }
+        </style>
+        <fieldset>
+            <legend>Select:</legend>
+            <button id="button2" class="ui-state-default ui-corner-all">backgroundColor</button>
+            <button id="button1" class="ui-state-default ui-corner-all">color</button>
+        </fieldset> 
+        <div class="toggler">
+            <div id="effect" class="ui-widget-content ui-corner-all">
+                <p id="swatch">Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.</p>
+            </div>
+        </div>
+        <div id="red"></div>
+        <div id="green"></div>
+        <div id="blue"></div>
+        <script>
+            $( function() {
+                var state = true;
+                $( "#button2" ).on( "click", function() {
+                    if ( state ) {
+                        $( "#effect" ).animate({
+                        backgroundColor: "#0900ff",
+                        color: "#fff",         
+                        },);
+                    } else {
+                        $( "#effect" ).animate({
+                        backgroundColor: "#fff",
+                        color: "#000",
+                        },);
+                    }
+                    state = !state;
+                });
+            } ); 
+            $( "#button1" ).on( "click", function() {
+            function hexFromRGB(r, g, b) {
+                var hex = [
+                r.toString( 16 ),
+                g.toString( 16 ),
+                b.toString( 16 )
+                ];
+            $.each( hex, function( nr, val ) {
+                if ( val.length === 1 ) {
+                hex[ nr ] = "0" + val;
+                }
+            });
+            return hex.join( "" ).toUpperCase();
+            }
+            function refreshSwatch() {
+                var red = $( "#red" ).slider( "value" ),
+                green = $( "#green" ).slider( "value" ),
+                blue = $( "#blue" ).slider( "value" ),
+                hex = hexFromRGB( red, green, blue );
+                $( "#swatch" ).css( "color", "#" + hex );
+            } 
+            $( "#red, #green, #blue" ).slider({
+            orientation: "horizontal",
+            range: "min",
+            max: 255,
+            value: 127,
+            slide: refreshSwatch,
+            change: refreshSwatch
+            });
+            $( "#red" ).slider( "value", 255 );
+            $( "#green" ).slider( "value", 140 );
+            $( "#blue" ).slider( "value", 60 );    
+            } );
+        </script>
+    </body>
+</html>
