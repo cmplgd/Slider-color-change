@@ -1,5 +1,2 @@
 # Slider-color-change
-JQuery libraries 1.12.1/ 1.12.4 have been used
-Pressing "backgroundColor" changes frame background color
-Pressing "color" button shows slider
-Slider changes text color
+При нажатии на кнопку "backgroundColor" меняется цвет фона внутри рамки. При нажатии на кнопку "color" появляется слайдер. Слайдер изменяет цвет текста. Использованы библиотеки JQuery: 1.12.1/ 1.12.4.
